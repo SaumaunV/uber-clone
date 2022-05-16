@@ -10,6 +10,7 @@ function Map() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY!,
+    libraries: ["places"]
   });
 
   const [map, setMap] = React.useState(null);
@@ -27,10 +28,7 @@ function Map() {
   return isLoaded ? (
     <div className="flex-1">
       <GoogleMap
-        mapContainerStyle={{
-          width: "100%",
-          height: "100%",
-        }}
+        mapContainerClassName="w-full h-full"
         center={center}
         zoom={10}
         onLoad={onLoad}

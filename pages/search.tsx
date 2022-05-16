@@ -1,8 +1,13 @@
+import { Autocomplete } from '@react-google-maps/api';
 import { NextPage } from 'next'
 import Link from 'next/link'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 
 const Search: NextPage = () => {
+  const [pickup, setPickup] = useState("");
+  const [dropoff, setDropoff] = useState("");
+
+
   return (
     <div className="h-screen bg-gray-200">
       <div className="bg-white px-4">
@@ -34,16 +39,22 @@ const Search: NextPage = () => {
           />
         </div>
         <div className="flex flex-col ml-2">
-          <input
-            type="text"
-            placeholder="Enter pickup location"
-            className="h-10 bg-gray-200 my-2 rounded-2 p-2 outline-none border-none"
-          />
-          <input
-            type="text"
-            placeholder="Where to?"
-            className="h-10 bg-gray-200 my-2 rounded-2 p-2 outline-none border-none"
-          />
+          <Autocomplete>
+            <input
+              type="text"
+              placeholder="Enter pickup location"
+              className="h-10 bg-gray-200 my-2 rounded-2 p-2 outline-none border-none"
+              onChange={(e) => setPickup(e.target.value)}
+            />
+          </Autocomplete>
+          <Autocomplete>
+            <input
+              type="text"
+              placeholder="Where to?"
+              className="h-10 bg-gray-200 my-2 rounded-2 p-2 outline-none border-none"
+              onChange={(e) => setDropoff(e.target.value)}
+            />
+          </Autocomplete>
         </div>
         <img
           src="https://img.icons8.com/ios/50/000000/plus-math.png"
@@ -60,9 +71,11 @@ const Search: NextPage = () => {
         Saved Places
       </div>
       <div className="flex justify-center">
-        <button className="bg-black text-white px-4 py-2 w-80">
-          Confirm Locations
-        </button>
+        <Link href="/confirm">
+          <button className="bg-black text-white px-4 py-2 w-80">
+            Confirm Locations
+          </button>
+        </Link>
       </div>
     </div>
   );
